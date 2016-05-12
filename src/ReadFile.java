@@ -17,14 +17,12 @@ public class ReadFile{
             File file = new File(filePath);
             scanner = new Scanner(Paths.get(filePath));
             while (scanner.hasNextLine()){
-                //System.out.println(scanner.nextLine());
                 line = line.concat(scanner.nextLine()) + "~|";
             }
         }
         catch (Exception err){
-            System.out.println(err.getMessage());
+            err.printStackTrace();
         }
-        System.out.println(line);
         return line;
     }
 }

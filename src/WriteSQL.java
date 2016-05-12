@@ -13,9 +13,7 @@ public class WriteSQL {
 
     public void write(){
         File file;
-        System.out.println("Gonna write");
         try {
-            System.out.println("In Try");
             file = createFile(filename);
             FileOutputStream outputStream = new FileOutputStream(file);
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
@@ -33,7 +31,6 @@ public class WriteSQL {
             w.close();
         }
         catch (Exception err){
-            System.out.println("In catch");
             err.printStackTrace();
         }
     }
@@ -49,7 +46,6 @@ public class WriteSQL {
             template = template + str + " none, ";
         }
         template = template.substring(0,template.length()-2) + ");\n";
-        //System.out.println(template);
         return template;
     }
 
@@ -59,13 +55,10 @@ public class WriteSQL {
         String seperator = "', '";
         for (int i = 1; i < contents.size(); i++) {
             templateBeginning = "insert into tabl values ('";
-            System.out.println(contents.get(i)[0]);
             for (String str:contents.get(i)) {
                 templateBeginning = templateBeginning + str + seperator ;
-                System.out.println(templateBeginning);
             }
             insertStatements += templateBeginning.substring(0,templateBeginning.length()-3) + ");\n";
-            System.out.println(insertStatements);
         }
         return insertStatements;
     }
