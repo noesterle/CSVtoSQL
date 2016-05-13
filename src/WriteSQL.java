@@ -11,6 +11,9 @@ public class WriteSQL {
         contents = arrayList;
     }
 
+    /**
+     * Establishes connection with file and writes sql statements to file.
+     */
     public void write(){
         File file;
         try {
@@ -18,27 +21,35 @@ public class WriteSQL {
             FileOutputStream outputStream = new FileOutputStream(file);
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
             Writer w = new BufferedWriter(outputStreamWriter);
-            String header = createTable(contents);
-            String inserts = inserts(contents);
+            String header = createTable(contents); //Creates a string that will create the table.
+            String inserts = inserts(contents); //Creates a string that will be all the insert statements.
 
-            /*for (String arr[]:contents) {
-                for (String str: arr) {
-                    w.append(str+" ");
-                }
-            }*/
-            w.write(header);
-            w.write(inserts);
-            w.close();
+            w.write(header); //Write create table statement to file.
+            w.write(inserts); //Write the insert statements to file.
+            w.close(); //Close connection with file.
         }
         catch (Exception err){
             err.printStackTrace();
         }
     }
 
+    /**
+     * Creates or establishes connection with the file.
+     *
+     * @param filename - name of file to connect to.
+     * @return File object
+     */
     public File createFile(String filename){
         return new File(filename);
     }
 
+    /**
+     *
+     * Generates CREATE TABLE statement.
+     *
+     * @param contents - An arraylist of String arrays containing data to be written in sqlite3 file.
+     * @return template - A string containing CREATE TABLE statement for sqlite3 file.
+     */
     public String createTable(ArrayList <String[]> contents){
         String[] header = contents.get(0);
         String template = "CREATE TABLE tabl(";
@@ -49,6 +60,13 @@ public class WriteSQL {
         return template;
     }
 
+    /**
+     *
+     * Generates insert statements for sqlite3 file.
+     *
+     * @param contents - Arraylist of string arrays containing data for sqlite3 file.
+     * @return insertStatements - A string of all insert statements for the sqlite3 file.
+     */
     public String inserts(ArrayList <String[]> contents){
         String templateBeginning;
         String insertStatements = "";
